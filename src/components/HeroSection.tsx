@@ -167,10 +167,10 @@ function AnimatedHeroCard() {
     return () => clearInterval(interval);
   }, []);
 
-  // Get 5 cards starting from current index (infinite loop)
+  // Get 4 cards starting from current index (infinite loop)
   const getVisibleCards = () => {
     const result = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const index = (currentIndex + i) % jobCards.length;
       result.push({ ...jobCards[index], key: `${currentIndex}-${i}` });
     }
@@ -180,7 +180,7 @@ function AnimatedHeroCard() {
   const visibleCards = getVisibleCards();
 
   return (
-    <div className="backdrop-blur-md bg-[#0F100F] border border-[#171A18] rounded-2xl md:rounded-3xl w-full max-w-[370px] h-[320px] md:h-[388px] overflow-hidden relative">
+    <div className="backdrop-blur-md bg-[#0F100F] border border-[#171A18] rounded-2xl md:rounded-3xl w-full max-w-[370px] h-[340px] md:h-[388px] overflow-hidden relative">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-[#0F100F] px-3 md:px-4 pt-4 md:pt-5 pb-2 md:pb-3">
         <div className="flex flex-col gap-1.5 md:gap-2">
