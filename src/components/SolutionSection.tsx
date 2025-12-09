@@ -123,10 +123,10 @@ function AnimatedJobsPanel() {
   const showSuccess = step >= 2;
 
   return (
-    <div className="relative w-full aspect-[700/620] md:w-[500px] md:h-[443px] bg-[#080800] rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      <div className="flex h-full pt-4 px-4">
-        {/* Sidebar - no logo, just menu icons */}
-        <div className="flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
+    <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
+      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4">
+        {/* Sidebar - hidden on mobile */}
+        <div className="hidden md:flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
           <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
             <Image src={ICONS.briefcase} alt="" width={24} height={24} />
           </div>
@@ -148,36 +148,56 @@ function AnimatedJobsPanel() {
         </div>
 
         {/* Main Panel */}
-        <div className="flex-1 ml-4 flex flex-col">
+        <div className="flex-1 md:ml-4 flex flex-col">
           {/* Header with logo */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
-              <Image src={ICONS.logo} alt="" width={24} height={24} />
-              <span className="text-white font-medium text-xl tracking-[0.5px]">
+              <Image
+                src={ICONS.logo}
+                alt=""
+                width={20}
+                height={20}
+                className="md:w-6 md:h-6"
+              />
+              <span className="text-white font-medium text-base md:text-xl tracking-[0.5px]">
                 Jobs
               </span>
             </div>
             {allSelected && (
-              <button className="bg-[#00FF00] text-[#171A18] text-xs font-bold px-3 py-1.5 rounded-3xl tracking-[0.28px]">
+              <button className="bg-[#00FF00] text-[#171A18] text-[10px] md:text-xs font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-3xl tracking-[0.28px]">
                 Apply to All
               </button>
             )}
           </div>
 
           {/* Search/Filter Bar */}
-          <div className="flex items-center gap-2 mb-3">
-            <div className="bg-[#171A18] rounded-3xl px-3 py-2 flex items-center gap-2">
-              <Image src={ICONS.filter} alt="" width={16} height={16} />
-              <span className="text-[#506858] text-xs font-medium">
+          <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-3">
+            <div className="bg-[#171A18] rounded-3xl px-2 md:px-3 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2">
+              <Image
+                src={ICONS.filter}
+                alt=""
+                width={14}
+                height={14}
+                className="md:w-4 md:h-4"
+              />
+              <span className="text-[#506858] text-[10px] md:text-xs font-medium">
                 Filters
               </span>
             </div>
-            <div className="flex-1 bg-[#171A18] rounded-3xl px-3 py-2 flex items-center gap-2">
-              <Image src={ICONS.search} alt="" width={16} height={16} />
-              <span className="text-[#506858] text-xs font-medium">Search</span>
+            <div className="flex-1 bg-[#171A18] rounded-3xl px-2 md:px-3 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2">
+              <Image
+                src={ICONS.search}
+                alt=""
+                width={14}
+                height={14}
+                className="md:w-4 md:h-4"
+              />
+              <span className="text-[#506858] text-[10px] md:text-xs font-medium">
+                Search
+              </span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[#506858] text-xs font-medium">
+            <div className="flex items-center gap-1.5 md:gap-2">
+              <span className="text-[#506858] text-[10px] md:text-xs font-medium hidden sm:inline">
                 Select all
               </span>
               <Checkbox checked={allSelected} />
@@ -185,9 +205,12 @@ function AnimatedJobsPanel() {
           </div>
 
           {/* Job Cards - shows 3.5 cards */}
-          <div className="flex-1 overflow-hidden space-y-1.5">
+          <div className="flex-1 overflow-hidden space-y-1 md:space-y-1.5">
             {jobs.map((job) => (
-              <div key={job.id} className="bg-[#171A18] rounded-xl p-2.5">
+              <div
+                key={job.id}
+                className="bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5"
+              >
                 {/* Header: Logo, Title, Time, Checkbox */}
                 <div className="flex items-start justify-between mb-1.5">
                   <div className="flex items-center gap-2">
@@ -219,8 +242,8 @@ function AnimatedJobsPanel() {
                 <div className="h-px bg-[#232A25] mb-1.5" />
 
                 {/* Details Grid: 3 columns x 2 rows + Apply button */}
-                <div className="flex items-start justify-between gap-2">
-                  <div className="grid grid-cols-3 gap-x-3 gap-y-0.5 text-[10px] flex-1">
+                <div className="flex items-start justify-between gap-1 md:gap-2">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-x-2 md:gap-x-3 gap-y-0.5 text-[9px] md:text-[10px] flex-1">
                     {/* Row 1 */}
                     <div className="flex items-center gap-1">
                       <Image
@@ -407,10 +430,10 @@ function AnimatedApplicationsPanel() {
   const showIcons = step === 4;
 
   return (
-    <div className="relative w-full aspect-[700/620] md:w-[500px] md:h-[443px] bg-[#080800] rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      <div className="flex h-full pt-4 px-4">
-        {/* Sidebar - no logo, just menu icons */}
-        <div className="flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
+    <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
+      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4">
+        {/* Sidebar - hidden on mobile */}
+        <div className="hidden md:flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
           <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
             <Image src={ICONS.briefcase} alt="" width={24} height={24} />
           </div>
@@ -432,40 +455,49 @@ function AnimatedApplicationsPanel() {
         </div>
 
         {/* Main Panel */}
-        <div className="flex-1 ml-4 flex flex-col">
+        <div className="flex-1 md:ml-4 flex flex-col">
           {/* Header with logo */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
-              <Image src={ICONS.logo} alt="" width={24} height={24} />
-              <span className="text-white font-medium text-xl tracking-[0.5px]">
+              <Image
+                src={ICONS.logo}
+                alt=""
+                width={20}
+                height={20}
+                className="md:w-6 md:h-6"
+              />
+              <span className="text-white font-medium text-base md:text-xl tracking-[0.5px]">
                 Applications
               </span>
             </div>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex items-center gap-1 mb-3">
-            <button className="bg-[#171A18] text-white text-[10px] font-medium px-3 py-1.5 rounded-2xl">
+          <div className="flex items-center gap-0.5 md:gap-1 mb-2 md:mb-3 overflow-x-auto">
+            <button className="bg-[#171A18] text-white text-[9px] md:text-[10px] font-medium px-2 md:px-3 py-1 md:py-1.5 rounded-2xl whitespace-nowrap">
               All
             </button>
-            <button className="text-[#506858] text-[10px] font-medium px-3 py-1.5">
+            <button className="text-[#506858] text-[9px] md:text-[10px] font-medium px-2 md:px-3 py-1 md:py-1.5 whitespace-nowrap">
               Applied
             </button>
-            <button className="text-[#506858] text-[10px] font-medium px-3 py-1.5">
+            <button className="text-[#506858] text-[9px] md:text-[10px] font-medium px-2 md:px-3 py-1 md:py-1.5 whitespace-nowrap">
               Interviewed
             </button>
-            <button className="text-[#506858] text-[10px] font-medium px-3 py-1.5">
+            <button className="text-[#506858] text-[9px] md:text-[10px] font-medium px-2 md:px-3 py-1 md:py-1.5 whitespace-nowrap">
               Offered
             </button>
-            <button className="text-[#506858] text-[10px] font-medium px-3 py-1.5">
+            <button className="text-[#506858] text-[9px] md:text-[10px] font-medium px-2 md:px-3 py-1 md:py-1.5 whitespace-nowrap">
               Rejected
             </button>
           </div>
 
           {/* Application Cards */}
-          <div className="flex-1 overflow-hidden space-y-1.5">
+          <div className="flex-1 overflow-hidden space-y-1 md:space-y-1.5">
             {applications.map((app, index) => (
-              <div key={app.id} className="bg-[#171A18] rounded-xl p-2.5">
+              <div
+                key={app.id}
+                className="bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5"
+              >
                 {/* Header: Logo, Title, Recruiter Button or Icons */}
                 <div className="flex items-start justify-between mb-1.5">
                   <div className="flex items-center gap-2">
@@ -493,35 +525,38 @@ function AnimatedApplicationsPanel() {
                   </div>
                   {/* Show icons on first card after modal closes, otherwise show button */}
                   {index === 0 && showIcons ? (
-                    <div className="flex items-center gap-1.5 animate-fade-in">
-                      <button className="w-7 h-7 rounded-full border border-[#506858] flex items-center justify-center">
+                    <div className="flex items-center gap-1 md:gap-1.5 animate-fade-in">
+                      <button className="w-6 h-6 md:w-7 md:h-7 rounded-full border border-[#506858] flex items-center justify-center">
                         <Image
                           src={ICONS.atSign}
                           alt=""
-                          width={14}
-                          height={14}
+                          width={12}
+                          height={12}
+                          className="md:w-3.5 md:h-3.5"
                         />
                       </button>
-                      <button className="w-7 h-7 rounded-full border border-[#506858] flex items-center justify-center">
+                      <button className="w-6 h-6 md:w-7 md:h-7 rounded-full border border-[#506858] flex items-center justify-center">
                         <Image
                           src={ICONS.phone}
                           alt=""
-                          width={14}
-                          height={14}
+                          width={12}
+                          height={12}
+                          className="md:w-3.5 md:h-3.5"
                         />
                       </button>
-                      <button className="w-7 h-7 rounded-full border border-[#506858] flex items-center justify-center">
+                      <button className="w-6 h-6 md:w-7 md:h-7 rounded-full border border-[#506858] flex items-center justify-center">
                         <Image
                           src={ICONS.linkedin}
                           alt=""
-                          width={14}
-                          height={14}
+                          width={12}
+                          height={12}
+                          className="md:w-3.5 md:h-3.5"
                         />
                       </button>
                     </div>
                   ) : (
                     <button
-                      className={`border text-[9px] font-medium px-2 py-1 rounded-2xl transition-all duration-200 ${
+                      className={`border text-[8px] md:text-[9px] font-medium px-1.5 md:px-2 py-0.5 md:py-1 rounded-2xl transition-all duration-200 whitespace-nowrap ${
                         index === 0 && buttonHighlighted
                           ? "bg-[#00FF00] text-[#171A18] border-[#00FF00] scale-105"
                           : "border-[#00FF00] text-[#00FF00]"
@@ -534,10 +569,12 @@ function AnimatedApplicationsPanel() {
                 {/* Divider */}
                 <div className="h-px bg-[#232A25] mb-1.5" />
                 {/* Details Row */}
-                <div className="flex items-center gap-4 text-[10px]">
+                <div className="flex items-center gap-2 md:gap-4 text-[9px] md:text-[10px] flex-wrap">
                   <div className="flex items-center gap-1">
                     <span className="text-[#506858] font-medium">Salary:</span>
-                    <span className="text-white font-medium">{app.salary}</span>
+                    <span className="text-white font-medium truncate max-w-[80px] md:max-w-none">
+                      {app.salary}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="text-[#506858] font-medium">Status:</span>
@@ -545,10 +582,8 @@ function AnimatedApplicationsPanel() {
                       {app.status}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-[#506858] font-medium">
-                      Applied Date:
-                    </span>
+                  <div className="hidden sm:flex items-center gap-1">
+                    <span className="text-[#506858] font-medium">Applied:</span>
                     <span className="text-white font-medium">
                       {app.appliedDate}
                     </span>
@@ -690,10 +725,10 @@ function AnimatedInboxPanel() {
   const visibleNotifications = getVisibleNotifications();
 
   return (
-    <div className="relative w-full aspect-[700/620] md:w-[500px] md:h-[443px] bg-[#080800] rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      <div className="flex h-full pt-4 px-4">
-        {/* Sidebar - no logo, just menu icons */}
-        <div className="flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
+    <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
+      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4">
+        {/* Sidebar - hidden on mobile */}
+        <div className="hidden md:flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
           <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
             <Image src={ICONS.briefcase} alt="" width={24} height={24} />
           </div>
@@ -715,60 +750,74 @@ function AnimatedInboxPanel() {
         </div>
 
         {/* Main Panel */}
-        <div className="flex-1 ml-4 flex flex-col">
+        <div className="flex-1 md:ml-4 flex flex-col">
           {/* Header with logo */}
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
-              <Image src={ICONS.logo} alt="" width={24} height={24} />
-              <span className="text-white font-medium text-xl tracking-[0.5px]">
+              <Image
+                src={ICONS.logo}
+                alt=""
+                width={20}
+                height={20}
+                className="md:w-6 md:h-6"
+              />
+              <span className="text-white font-medium text-base md:text-xl tracking-[0.5px]">
                 Inbox
               </span>
             </div>
           </div>
 
           {/* Search Bar */}
-          <div className="bg-[#171A18] rounded-3xl px-3 py-2 flex items-center gap-2 mb-3">
-            <Image src={ICONS.search} alt="" width={16} height={16} />
-            <span className="text-[#506858] text-xs font-medium">Search</span>
+          <div className="bg-[#171A18] rounded-3xl px-2 md:px-3 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2 mb-2 md:mb-3">
+            <Image
+              src={ICONS.search}
+              alt=""
+              width={14}
+              height={14}
+              className="md:w-4 md:h-4"
+            />
+            <span className="text-[#506858] text-[10px] md:text-xs font-medium">
+              Search
+            </span>
           </div>
 
           {/* Notification Cards - shows 6 items, last one overlaps bottom */}
-          <div className="flex-1 space-y-1.5">
+          <div className="flex-1 space-y-1 md:space-y-1.5">
             {visibleNotifications.map((notification, index) => (
               <div
                 key={notification.key}
-                className={`bg-[#171A18] rounded-xl p-2.5 flex items-center justify-between transition-all duration-300 ${
+                className={`bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5 flex items-center justify-between transition-all duration-300 ${
                   index === 0 ? "animate-slide-down" : ""
                 }`}
               >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
+                <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
                   <div
-                    className={`rounded-xl w-10 h-10 flex items-center justify-center overflow-hidden shrink-0 ${
+                    className={`rounded-lg md:rounded-xl w-8 h-8 md:w-10 md:h-10 flex items-center justify-center overflow-hidden shrink-0 ${
                       notification.logo.includes("apple")
-                        ? "bg-white p-2"
+                        ? "bg-white p-1.5 md:p-2"
                         : notification.logo.includes("uber")
-                        ? "bg-black p-1"
+                        ? "bg-black p-0.5 md:p-1"
                         : "bg-white"
                     }`}
                   >
                     <Image
                       src={notification.logo}
                       alt=""
-                      width={notification.logo.includes("uber") ? 40 : 32}
-                      height={notification.logo.includes("uber") ? 40 : 32}
-                      className="object-contain"
+                      width={notification.logo.includes("uber") ? 32 : 24}
+                      height={notification.logo.includes("uber") ? 32 : 24}
+                      className="object-contain md:w-8 md:h-8"
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-white text-xs font-semibold leading-tight truncate">
+                    <p className="text-white text-[11px] md:text-xs font-semibold leading-tight truncate">
                       {notification.title}
                     </p>
-                    <p className="text-[#506858] text-[10px] font-medium truncate">
+                    <p className="text-[#506858] text-[9px] md:text-[10px] font-medium truncate">
                       {notification.subtitle}
                     </p>
                   </div>
                 </div>
-                <span className="text-[#00FF00] text-[10px] font-medium shrink-0">
+                <span className="text-[#00FF00] text-[9px] md:text-[10px] font-medium shrink-0">
                   New
                 </span>
               </div>
