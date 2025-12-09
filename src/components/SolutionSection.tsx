@@ -124,31 +124,31 @@ function AnimatedJobsPanel() {
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4">
-        {/* Sidebar - hidden on mobile */}
-        <div className="hidden md:flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
-          <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
-            <Image src={ICONS.briefcase} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
-            <Image src={ICONS.inbox} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.fileText} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.user} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.settings} alt="" width={24} height={24} />
-          </div>
+      {/* Sidebar - hidden on mobile, absolute positioned */}
+      <div className="hidden md:flex flex-col gap-2 items-center w-10 absolute left-4 top-12 z-10">
+        <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
+          <Image src={ICONS.briefcase} alt="" width={24} height={24} />
         </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+          <Image src={ICONS.inbox} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.fileText} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.user} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.settings} alt="" width={24} height={24} />
+        </div>
+      </div>
 
+      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4 md:pl-16">
         {/* Main Panel */}
-        <div className="flex-1 md:ml-4 flex flex-col">
+        <div className="flex-1 flex flex-col">
           {/* Header with logo */}
           <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
@@ -431,31 +431,31 @@ function AnimatedApplicationsPanel() {
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4">
-        {/* Sidebar - hidden on mobile */}
-        <div className="hidden md:flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
-          <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
-            <Image src={ICONS.briefcase} alt="" width={24} height={24} />
-          </div>
-          <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
-            <Image src={ICONS.inbox} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.fileText} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.user} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.settings} alt="" width={24} height={24} />
-          </div>
+      {/* Sidebar - hidden on mobile, absolute positioned */}
+      <div className="hidden md:flex flex-col gap-2 items-center w-10 absolute left-4 top-12 z-10">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+          <Image src={ICONS.briefcase} alt="" width={24} height={24} />
         </div>
+        <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+          <Image src={ICONS.inbox} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.fileText} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.user} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.settings} alt="" width={24} height={24} />
+        </div>
+      </div>
 
+      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4 md:pl-16">
         {/* Main Panel */}
-        <div className="flex-1 md:ml-4 flex flex-col">
+        <div className="flex-1 flex flex-col">
           {/* Header with logo */}
           <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
@@ -726,31 +726,31 @@ function AnimatedInboxPanel() {
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4">
-        {/* Sidebar - hidden on mobile */}
-        <div className="hidden md:flex flex-col gap-2 items-center w-10 shrink-0 pt-8">
-          <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
-            <Image src={ICONS.briefcase} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
-          </div>
-          <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
-            <Image src={ICONS.inbox} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.fileText} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.user} alt="" width={24} height={24} />
-          </div>
-          <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
-            <Image src={ICONS.settings} alt="" width={24} height={24} />
-          </div>
+      {/* Sidebar - hidden on mobile, absolute positioned */}
+      <div className="hidden md:flex flex-col gap-2 items-center w-10 absolute left-4 top-12 z-10">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+          <Image src={ICONS.briefcase} alt="" width={24} height={24} />
         </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
+        </div>
+        <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
+          <Image src={ICONS.inbox} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.fileText} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.user} alt="" width={24} height={24} />
+        </div>
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+          <Image src={ICONS.settings} alt="" width={24} height={24} />
+        </div>
+      </div>
 
+      <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4 md:pl-16">
         {/* Main Panel */}
-        <div className="flex-1 md:ml-4 flex flex-col">
+        <div className="flex-1 flex flex-col">
           {/* Header with logo */}
           <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
