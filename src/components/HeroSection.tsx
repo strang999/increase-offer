@@ -141,7 +141,7 @@ function JobCard({
             <p className="text-[#506858] text-xs">{subtitle}</p>
           </div>
         </div>
-        <div className="bg-[#232A25] rounded-xl px-1.5 py-0.5">
+        <div className="bg-[#232A25] rounded-[12px] px-1.5 py-0.5 shrink-0 ml-2">
           <span className="text-[#506858] text-[10px] font-bold">New</span>
         </div>
       </div>
@@ -158,8 +158,8 @@ function AnimatedHeroCard() {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % jobCards.length);
       setInvitationCount((prev) => {
-        // Cap at 99, then reset to 25
-        if (prev >= 99) return 25;
+        // Cap at 999, then reset to 25
+        if (prev >= 999) return 25;
         return prev + 1;
       });
     }, 2000);
@@ -180,7 +180,7 @@ function AnimatedHeroCard() {
   const visibleCards = getVisibleCards();
 
   return (
-    <div className="backdrop-blur-md bg-[#0F100F] border border-[#171A18] rounded-2xl md:rounded-3xl w-full max-w-[370px] h-[340px] md:h-[388px] overflow-hidden relative">
+    <div className="backdrop-blur-md bg-[#0F100F] border border-[#171A18] rounded-[24px] w-full max-w-[370px] h-[340px] md:h-[388px] overflow-hidden relative">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-[#0F100F] px-3 md:px-4 pt-4 md:pt-5 pb-2 md:pb-3">
         <div className="flex flex-col gap-1.5 md:gap-2">
@@ -191,23 +191,25 @@ function AnimatedHeroCard() {
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs md:text-sm">
+            {/* Inbox icon */}
             <svg
-              viewBox="0 0 18 18"
+              viewBox="0 0 24 24"
               className="w-4 h-4 md:w-[18px] md:h-[18px]"
               fill="none"
             >
               <path
-                d="M15 6.75L9 12.75L3 6.75"
+                d="M22 12H16L14 15H10L8 12H2"
                 stroke="#506858"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <path
-                d="M3 3H15"
+                d="M5.45 5.11L2 12V18C2 18.5304 2.21071 19.0391 2.58579 19.4142C2.96086 19.7893 3.46957 20 4 20H20C20.5304 20 21.0391 19.7893 21.4142 19.4142C21.7893 19.0391 22 18.5304 22 18V12L18.55 5.11C18.3844 4.77679 18.1292 4.49637 17.813 4.30028C17.4967 4.10419 17.1321 4.0002 16.76 4H7.24C6.86792 4.0002 6.50326 4.10419 6.18704 4.30028C5.87083 4.49637 5.61558 4.77679 5.45 5.11Z"
                 stroke="#506858"
                 strokeWidth="1.5"
                 strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
             <span>
@@ -216,7 +218,7 @@ function AnimatedHeroCard() {
               </span>
               <span className="text-[#506858] font-medium">
                 {" "}
-                interview invitations today
+                interview invitations received today
               </span>
             </span>
           </div>
@@ -224,13 +226,17 @@ function AnimatedHeroCard() {
       </div>
 
       {/* Cards Container - items shift one by one */}
-      <div className="absolute top-[65px] md:top-[80px] left-3 right-3 md:left-4 md:right-4 bottom-0">
-        <div className="flex flex-col gap-2">
+      <div className="absolute top-[85px] md:top-[95px] left-3 right-3 md:left-4 md:right-4 bottom-0">
+        <div className="flex flex-col gap-2 relative">
           {visibleCards.map((card, index) => (
             <div
               key={card.key}
-              className={`transition-all duration-300 ${
-                index === 0 ? "animate-slide-down" : ""
+              className={`transition-all duration-500 ${
+                index === 0
+                  ? "animate-slide-down"
+                  : index === visibleCards.length - 1
+                  ? "opacity-50"
+                  : "animate-slide-shift"
               }`}
             >
               <JobCard
@@ -243,8 +249,8 @@ function AnimatedHeroCard() {
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-20 bg-gradient-to-t from-[#0F100F] to-transparent z-10 pointer-events-none" />
+      {/* Bottom gradient fade for card clipping effect */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 md:h-28 bg-gradient-to-t from-[#0F100F] via-[#0F100F]/80 to-transparent z-10 pointer-events-none" />
     </div>
   );
 }
@@ -290,18 +296,19 @@ export default function HeroSection() {
         </div>
 
         {/* Job Sources */}
-        <div className="flex flex-col items-center gap-6 md:gap-10">
-          <p className="text-[#506858] text-base md:text-lg font-medium text-center">
-            One inbox for invitations.
-            <br />
-            <span className="text-white">Top job sources</span>
+        <div className="flex flex-col items-center gap-8 md:gap-12 mt-8 md:mt-16">
+          <p className="text-white text-xl md:text-2xl font-medium text-center">
+            All jobs from top sources in one place.
           </p>
 
           {/* Infinite sliding logos */}
-          <div className="w-full max-w-3xl overflow-hidden px-4 md:px-0">
-            <div className="flex animate-slide gap-8 md:gap-16">
+          <div className="w-full max-w-4xl overflow-hidden px-4 md:px-0  py-4 md:py-6 rounded-2xl">
+            <div
+              className="flex animate-slide gap-16 md:gap-32"
+              style={{ animationDuration: "10s" }}
+            >
               {/* First set */}
-              <div className="flex items-center gap-8 md:gap-16 shrink-0">
+              <div className="flex items-center gap-16 md:gap-32 shrink-0">
                 <Image
                   src="/LinkedIn.svg"
                   alt="LinkedIn"
@@ -332,7 +339,7 @@ export default function HeroSection() {
                 />
               </div>
               {/* Duplicate for seamless loop */}
-              <div className="flex items-center gap-8 md:gap-16 shrink-0">
+              <div className="flex items-center gap-16 md:gap-32 shrink-0">
                 <Image
                   src="/LinkedIn.svg"
                   alt="LinkedIn"

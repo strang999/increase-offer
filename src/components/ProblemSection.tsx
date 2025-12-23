@@ -72,7 +72,7 @@ function KeyboardIllustration() {
         newDots.push(pos);
       }
       setActiveDots(newDots);
-    }, 700);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -87,14 +87,16 @@ function KeyboardIllustration() {
               <div key={i} className="relative">
                 {/* Box becomes lighter when active */}
                 <div
-                  className={`w-8 h-8 md:w-10 md:h-10 rounded-md md:rounded-lg transition-colors duration-200 ${
+                  className={`w-8 h-8 md:w-10 md:h-10 rounded-md md:rounded-lg transition-all duration-500 ${
                     isActive ? "bg-[#3a4a3e]" : "bg-[#232A25]"
                   }`}
                 />
-                {/* Green notification dot on top-right */}
-                {isActive && (
-                  <div className="absolute -top-1 -right-1 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#00FF00]" />
-                )}
+                {/* Green notification dot on top-right - with scale/opacity transition */}
+                <div
+                  className={`absolute -top-1 -right-1 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#00FF00] transition-all duration-500 transform ${
+                    isActive ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                  }`}
+                />
               </div>
             );
           })}
@@ -122,7 +124,7 @@ function CalendarIllustration() {
         });
       }
       setActivePositions(positions);
-    }, 600);
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
@@ -150,7 +152,7 @@ function CalendarIllustration() {
               {Array.from({ length: 7 }).map((_, col) => (
                 <div
                   key={col}
-                  className={`h-3 md:h-4 rounded-full transition-colors duration-300 ${
+                  className={`h-3 md:h-4 rounded-full transition-colors duration-700 ease-in-out ${
                     barWidths[row][col]
                   } ${isActive(row, col) ? "bg-[#00FF00]" : "bg-[#232A25]"}`}
                 />
@@ -178,7 +180,7 @@ function ProblemItem({
 }: ProblemItemProps) {
   return (
     <div
-      className={`flex flex-col md:flex-row items-center gap-6 md:gap-10 ${
+      className={`flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 ${
         reverse ? "md:flex-row-reverse" : ""
       }`}
     >
@@ -201,7 +203,7 @@ export default function ProblemSection() {
       <div className="max-w-[1440px] mx-auto px-4 md:px-16">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-12 md:mb-20">
-          <span className="text-[#506858] text-xs md:text-sm font-medium mb-3 md:mb-4 px-3 py-1.5 md:px-4 md:py-2 bg-[#171A18] rounded-full">
+          <span className="text-white text-xs md:text-sm font-medium mb-3 md:mb-4 px-4 py-2 md:px-5 md:py-2.5 border border-[#232A25] rounded-full">
             The problem
           </span>
           <h2 className="text-white text-2xl md:text-[32px] font-medium leading-tight md:leading-9 mb-3 md:mb-4">
@@ -217,7 +219,7 @@ export default function ProblemSection() {
         </div>
 
         {/* Problems List */}
-        <div className="flex flex-col gap-10 md:gap-16 max-w-[1100px] mx-auto">
+        <div className="flex flex-col gap-10 md:gap-16 max-w-[800px] mx-auto">
           {/* Problem 1 - Browser tabs */}
           <ProblemItem
             illustration={<BrowserIllustration />}

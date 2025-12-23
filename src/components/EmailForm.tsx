@@ -119,14 +119,14 @@ export default function EmailForm({ className = "" }: EmailFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="bg-transparent text-white text-sm md:text-base font-medium outline-none w-full placeholder:text-[#506858]"
+            className="bg-transparent text-white text-sm md:text-base font-medium outline-none w-full placeholder:text-[#506858] h-full"
             disabled={status === "loading"}
           />
         </div>
         <button
           type="submit"
           disabled={status === "loading"}
-          className="bg-[#00FF00] hover:bg-[#00DD00] disabled:bg-[#00FF00]/50 text-[#171A18] font-bold text-sm md:text-base px-4 py-2 rounded-xl md:rounded-2xl h-11 md:h-12 w-full md:w-[140px] transition-colors"
+          className="bg-[#00FF00] hover:bg-[#00DD00] disabled:bg-[#00FF00]/50 text-[#171A18] font-bold text-sm md:text-base px-4 py-2 rounded-xl md:rounded-2xl h-11 md:h-12 w-full md:w-[140px] transition-colors shrink-0"
         >
           {status === "loading" ? "..." : "Join Waitlist"}
         </button>
@@ -140,8 +140,8 @@ export default function EmailForm({ className = "" }: EmailFormProps) {
           {message}
         </p>
       )}
-      {/* GDPR Compliance - Checkbox with disclaimer */}
-      <label className="flex items-start gap-2 mt-3 cursor-pointer">
+      {/* GDPR Compliance - Checkbox with disclaimer - aligned with placeholder */}
+      <label className="flex items-start gap-2 mt-3 cursor-pointer pl-3">
         <input
           type="checkbox"
           checked={agreed}

@@ -107,15 +107,30 @@ const jobs = [
 // ============ ANIMATED JOBS PANEL - Exact Figma Recreation ============
 function AnimatedJobsPanel() {
   const [step, setStep] = useState(0);
+  const [checkedCount, setCheckedCount] = useState(-1);
 
   useEffect(() => {
     const runAnimation = () => {
       setStep(0);
-      setTimeout(() => setStep(1), 2000);
-      setTimeout(() => setStep(2), 4000);
+      setCheckedCount(-1);
+
+      // Step 1: Select "Select all" and then sequentially others
+      setTimeout(() => {
+        setStep(1);
+        // Animate checkboxes one by one
+        let count = 0;
+        const checkInterval = setInterval(() => {
+          setCheckedCount((prev) => prev + 1);
+          count++;
+          if (count >= jobs.length) clearInterval(checkInterval);
+        }, 300);
+      }, 2000);
+
+      // Step 2: Show success
+      setTimeout(() => setStep(2), 5000);
     };
     runAnimation();
-    const interval = setInterval(runAnimation, 7000);
+    const interval = setInterval(runAnimation, 8000);
     return () => clearInterval(interval);
   }, []);
 
@@ -126,22 +141,28 @@ function AnimatedJobsPanel() {
     <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
       {/* Sidebar - hidden on mobile, absolute positioned */}
       <div className="hidden md:flex flex-col gap-2 items-center w-10 absolute left-4 top-12 z-10">
-        <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
-          <Image src={ICONS.briefcase} alt="" width={24} height={24} />
+        <div className="bg-white flex items-center justify-center h-10 p-2 rounded-[34px] shadow-lg shadow-white/10">
+          <Image
+            src={ICONS.briefcase}
+            alt=""
+            width={24}
+            height={24}
+            className="brightness-0"
+          />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50 hover:opacity-100 transition-opacity">
           <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px] opacity-50 hover:opacity-100 transition-opacity">
           <Image src={ICONS.inbox} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50 hover:opacity-100 transition-opacity">
           <Image src={ICONS.fileText} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50 hover:opacity-100 transition-opacity">
           <Image src={ICONS.user} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50 hover:opacity-100 transition-opacity">
           <Image src={ICONS.settings} alt="" width={24} height={24} />
         </div>
       </div>
@@ -160,11 +181,11 @@ function AnimatedJobsPanel() {
                 className="md:w-6 md:h-6"
               />
               <span className="text-white font-medium text-base md:text-xl tracking-[0.5px]">
-                Jobs
+                All Jobs
               </span>
             </div>
             {allSelected && (
-              <button className="bg-[#00FF00] text-[#171A18] text-[10px] md:text-xs font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-3xl tracking-[0.28px]">
+              <button className="bg-[#00FF00] hover:bg-[#00EE00] text-[#171A18] text-[10px] md:text-xs font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-3xl tracking-[0.28px] transition-colors cursor-pointer animate-fade-in shadow-[0_0_10px_rgba(0,255,0,0.3)]">
                 Apply to All
               </button>
             )}
@@ -204,14 +225,13 @@ function AnimatedJobsPanel() {
             </div>
           </div>
 
-          {/* Job Cards - shows 3.5 cards */}
+          {/* Job Cards */}
           <div className="flex-1 overflow-hidden space-y-1 md:space-y-1.5">
-            {jobs.map((job) => (
+            {jobs.map((job, index) => (
               <div
                 key={job.id}
                 className="bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5"
               >
-                {/* Header: Logo, Title, Time, Checkbox */}
                 <div className="flex items-start justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <Image
@@ -234,17 +254,12 @@ function AnimatedJobsPanel() {
                     <span className="text-[#506858] text-[10px] font-medium">
                       {job.time}
                     </span>
-                    <Checkbox checked={allSelected} />
+                    <Checkbox checked={index <= checkedCount - 1} />
                   </div>
                 </div>
-
-                {/* Divider */}
                 <div className="h-px bg-[#232A25] mb-1.5" />
-
-                {/* Details Grid: 3 columns x 2 rows + Apply button */}
                 <div className="flex items-start justify-between gap-1 md:gap-2">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-x-2 md:gap-x-3 gap-y-0.5 text-[9px] md:text-[10px] flex-1">
-                    {/* Row 1 */}
                     <div className="flex items-center gap-1">
                       <Image
                         src={ICONS.location}
@@ -279,7 +294,6 @@ function AnimatedJobsPanel() {
                         {job.salary}
                       </span>
                     </div>
-                    {/* Row 2 */}
                     <div className="flex items-center gap-1">
                       <Image
                         src={ICONS.building}
@@ -336,7 +350,6 @@ function AnimatedJobsPanel() {
         <>
           <div className="absolute inset-0 backdrop-blur-[10px] bg-[rgba(15,16,15,0.8)]" />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#171A18] rounded-[40px] w-[280px] h-[280px] md:w-[400px] md:h-[400px] flex flex-col items-center justify-center animate-fade-in">
-            {/* Success check circle - using check-circle.svg icon */}
             <div className="w-[100px] h-[100px] md:w-[160px] md:h-[160px]">
               <Image
                 src={ICONS.successCheck}
@@ -405,19 +418,14 @@ const applications = [
 // ============ ANIMATED APPLICATIONS PANEL ============
 function AnimatedApplicationsPanel() {
   const [step, setStep] = useState(0);
-  // step 0: initial state
-  // step 1: "Recruiter Contacts" button highlighted (about to click)
-  // step 2: modal visible
-  // step 3: X button highlighted (about to close)
-  // step 4: modal closed, contact icons appear
 
   useEffect(() => {
     const runAnimation = () => {
       setStep(0);
-      setTimeout(() => setStep(1), 1500); // Highlight button
-      setTimeout(() => setStep(2), 2000); // Show modal
-      setTimeout(() => setStep(3), 4000); // Highlight X button
-      setTimeout(() => setStep(4), 4500); // Close modal, show icons
+      setTimeout(() => setStep(1), 1500);
+      setTimeout(() => setStep(2), 2000);
+      setTimeout(() => setStep(3), 4000);
+      setTimeout(() => setStep(4), 4500);
     };
     runAnimation();
     const interval = setInterval(runAnimation, 7000);
@@ -431,32 +439,35 @@ function AnimatedApplicationsPanel() {
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      {/* Sidebar - hidden on mobile, absolute positioned */}
       <div className="hidden md:flex flex-col gap-2 items-center w-10 absolute left-4 top-12 z-10">
-        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px] opacity-50">
           <Image src={ICONS.briefcase} alt="" width={24} height={24} />
         </div>
-        <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[10px]">
-          <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
+        <div className="bg-white flex items-center justify-center h-10 p-2 rounded-[10px] shadow-lg shadow-white/10">
+          <Image
+            src={ICONS.checkCircle}
+            alt=""
+            width={24}
+            height={24}
+            className="brightness-0"
+          />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px] opacity-50">
           <Image src={ICONS.inbox} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.fileText} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.user} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.settings} alt="" width={24} height={24} />
         </div>
       </div>
 
       <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4 md:pl-16">
-        {/* Main Panel */}
         <div className="flex-1 flex flex-col">
-          {/* Header with logo */}
           <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
               <Image
@@ -467,12 +478,11 @@ function AnimatedApplicationsPanel() {
                 className="md:w-6 md:h-6"
               />
               <span className="text-white font-medium text-base md:text-xl tracking-[0.5px]">
-                Applications
+                My Applications
               </span>
             </div>
           </div>
 
-          {/* Filter Tabs */}
           <div className="flex items-center gap-0.5 md:gap-1 mb-2 md:mb-3 overflow-x-auto">
             <button className="bg-[#171A18] text-white text-[9px] md:text-[10px] font-medium px-2 md:px-3 py-1 md:py-1.5 rounded-2xl whitespace-nowrap">
               All
@@ -491,14 +501,13 @@ function AnimatedApplicationsPanel() {
             </button>
           </div>
 
-          {/* Application Cards */}
           <div className="flex-1 overflow-hidden space-y-1 md:space-y-1.5">
             {applications.map((app, index) => (
               <div
                 key={app.id}
-                className="bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5"
+                className="bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5 animate-slide-down opacity-0 fill-mode-forwards"
+                style={{ animationDelay: `${index * 200}ms` }}
               >
-                {/* Header: Logo, Title, Recruiter Button or Icons */}
                 <div className="flex items-start justify-between mb-1.5">
                   <div className="flex items-center gap-2">
                     <div
@@ -523,7 +532,6 @@ function AnimatedApplicationsPanel() {
                       </p>
                     </div>
                   </div>
-                  {/* Show icons on first card after modal closes, otherwise show button */}
                   {index === 0 && showIcons ? (
                     <div className="flex items-center gap-1 md:gap-1.5 animate-fade-in">
                       <button className="w-6 h-6 md:w-7 md:h-7 rounded-full border border-[#506858] flex items-center justify-center">
@@ -566,9 +574,7 @@ function AnimatedApplicationsPanel() {
                     </button>
                   )}
                 </div>
-                {/* Divider */}
                 <div className="h-px bg-[#232A25] mb-1.5" />
-                {/* Details Row */}
                 <div className="flex items-center gap-2 md:gap-4 text-[9px] md:text-[10px] flex-wrap">
                   <div className="flex items-center gap-1">
                     <span className="text-[#506858] font-medium">Salary:</span>
@@ -595,12 +601,10 @@ function AnimatedApplicationsPanel() {
         </div>
       </div>
 
-      {/* Recruiter Modal Overlay */}
       {showPopup && (
         <>
           <div className="absolute inset-0 backdrop-blur-[10px] bg-[rgba(15,16,15,0.8)]" />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#171A18] rounded-[24px] w-[200px] p-6 flex flex-col items-center animate-fade-in">
-            {/* Close button */}
             <button
               className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
                 closeHighlighted ? "bg-[#506858] scale-110" : ""
@@ -614,8 +618,6 @@ function AnimatedApplicationsPanel() {
                 className={closeHighlighted ? "opacity-100" : "opacity-70"}
               />
             </button>
-
-            {/* Avatar */}
             <div className="w-20 h-20 rounded-full overflow-hidden mb-3 border-2 border-[#232A25]">
               <Image
                 src={ICONS.avatar}
@@ -625,14 +627,10 @@ function AnimatedApplicationsPanel() {
                 className="object-cover"
               />
             </div>
-
-            {/* Name & Title */}
             <p className="text-white text-base font-medium mb-1">Jane Adams</p>
             <p className="text-[#506858] text-xs font-medium mb-4">
               Senior HR Manager
             </p>
-
-            {/* Contact Icons */}
             <div className="flex items-center gap-3">
               <button className="w-10 h-10 rounded-full border border-[#506858] flex items-center justify-center">
                 <Image src={ICONS.atSign} alt="" width={18} height={18} />
@@ -704,12 +702,10 @@ function AnimatedInboxPanel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % inboxNotifications.length);
-    }, 2000);
-
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
-  // Get 6 notifications starting from current index (infinite loop)
   const getVisibleNotifications = () => {
     const result = [];
     for (let i = 0; i < 6; i++) {
@@ -726,32 +722,35 @@ function AnimatedInboxPanel() {
 
   return (
     <div className="relative w-full aspect-[4/5] md:aspect-auto md:w-[500px] md:h-[443px] bg-[#080800] rounded-[24px] md:rounded-[40px] overflow-hidden font-['Montserrat',sans-serif]">
-      {/* Sidebar - hidden on mobile, absolute positioned */}
       <div className="hidden md:flex flex-col gap-2 items-center w-10 absolute left-4 top-12 z-10">
-        <div className="flex items-center justify-center h-10 p-2 rounded-[34px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[34px] opacity-50">
           <Image src={ICONS.briefcase} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.checkCircle} alt="" width={24} height={24} />
         </div>
-        <div className="bg-[#080800] flex items-center justify-center h-10 p-2 rounded-[34px]">
-          <Image src={ICONS.inbox} alt="" width={24} height={24} />
+        <div className="bg-white flex items-center justify-center h-10 p-2 rounded-[34px] shadow-lg shadow-white/10">
+          <Image
+            src={ICONS.inbox}
+            alt=""
+            width={24}
+            height={24}
+            className="brightness-0"
+          />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.fileText} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.user} alt="" width={24} height={24} />
         </div>
-        <div className="flex items-center justify-center h-10 p-2 rounded-[10px]">
+        <div className="flex items-center justify-center h-10 p-2 rounded-[10px] opacity-50">
           <Image src={ICONS.settings} alt="" width={24} height={24} />
         </div>
       </div>
 
       <div className="flex h-full pt-3 px-3 md:pt-4 md:px-4 md:pl-16">
-        {/* Main Panel */}
         <div className="flex-1 flex flex-col">
-          {/* Header with logo */}
           <div className="flex items-center justify-between mb-2 md:mb-3">
             <div className="flex items-center gap-2">
               <Image
@@ -767,7 +766,6 @@ function AnimatedInboxPanel() {
             </div>
           </div>
 
-          {/* Search Bar */}
           <div className="bg-[#171A18] rounded-3xl px-2 md:px-3 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2 mb-2 md:mb-3">
             <Image
               src={ICONS.search}
@@ -781,45 +779,42 @@ function AnimatedInboxPanel() {
             </span>
           </div>
 
-          {/* Notification Cards - shows 6 items, last one overlaps bottom */}
-          <div className="flex-1 space-y-1 md:space-y-1.5">
+          <div className="flex-1 space-y-1 md:space-y-1.5 overflow-hidden">
             {visibleNotifications.map((notification, index) => (
               <div
                 key={notification.key}
-                className={`bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5 flex items-center justify-between transition-all duration-300 ${
-                  index === 0 ? "animate-slide-down" : ""
+                className={`bg-[#171A18] rounded-lg md:rounded-xl p-2 md:p-2.5 flex items-center justify-between transition-all duration-500 ${
+                  index === 0
+                    ? "animate-slide-down"
+                    : index === visibleNotifications.length - 1
+                    ? "animate-slide-out"
+                    : "animate-slide-shift"
                 }`}
               >
-                <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
-                  <div
-                    className={`rounded-lg md:rounded-xl w-8 h-8 md:w-10 md:h-10 flex items-center justify-center overflow-hidden shrink-0 ${
-                      notification.logo.includes("apple")
-                        ? "bg-white p-1.5 md:p-2"
-                        : notification.logo.includes("uber")
-                        ? "bg-black p-0.5 md:p-1"
-                        : "bg-white"
-                    }`}
-                  >
+                <div className="flex items-center gap-2">
+                  <div className="bg-white rounded-lg w-8 h-8 flex items-center justify-center overflow-hidden shrink-0">
                     <Image
                       src={notification.logo}
                       alt=""
-                      width={notification.logo.includes("uber") ? 32 : 24}
-                      height={notification.logo.includes("uber") ? 32 : 24}
-                      className="object-contain md:w-8 md:h-8"
+                      width={24}
+                      height={24}
+                      className="object-contain"
                     />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-white text-[11px] md:text-xs font-semibold leading-tight truncate">
+                  <div>
+                    <p className="text-white text-xs font-semibold leading-tight">
                       {notification.title}
                     </p>
-                    <p className="text-[#506858] text-[9px] md:text-[10px] font-medium truncate">
+                    <p className="text-[#506858] text-[10px] font-medium truncate max-w-[180px]">
                       {notification.subtitle}
                     </p>
                   </div>
                 </div>
-                <span className="text-[#00FF00] text-[9px] md:text-[10px] font-medium shrink-0">
-                  New
-                </span>
+                <div className="bg-[#232A25] rounded-[12px] px-1.5 py-0.5 shrink-0 ml-2">
+                  <span className="text-[#506858] text-[10px] font-bold">
+                    New
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -829,75 +824,80 @@ function AnimatedInboxPanel() {
   );
 }
 
-interface StepCardProps {
-  number: number;
-  title: string;
-  content: React.ReactNode;
-}
-
-function StepCard({ number, title, content }: StepCardProps) {
-  return (
-    <div className="flex flex-col gap-3 md:gap-5 w-full md:w-auto">
-      <div className="flex items-center gap-3 md:gap-5">
-        <div className="relative w-8 h-8 md:w-10 md:h-10 shrink-0">
-          <div className="absolute inset-0 backdrop-blur-md bg-[#0F100F] border border-[#171A18] rounded-lg md:rounded-xl" />
-          <span className="absolute inset-0 flex items-center justify-center text-white text-base md:text-lg font-medium">
-            {number}
-          </span>
-        </div>
-        <p className="text-white text-base md:text-lg font-medium">{title}</p>
-      </div>
-      <div className="backdrop-blur-md bg-[#0F100F] border border-[#171A18] rounded-2xl md:rounded-[44px] overflow-hidden p-2 md:p-4">
-        {content}
-      </div>
-    </div>
-  );
-}
-
 export default function SolutionSection() {
   return (
-    <section className="py-12 md:py-20 bg-[#0F100F]">
-      <div className="max-w-[1440px] mx-auto px-4 md:px-16">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-10 md:mb-16">
-          <span className="text-[#506858] text-xs md:text-sm font-medium mb-3 md:mb-4 px-3 py-1.5 md:px-4 md:py-2 bg-[#171A18] rounded-full">
+    <section className="py-20 md:py-32 bg-[#0F100F] relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/80 to-transparent z-0 pointer-events-none" />
+
+      <div className="max-w-[1440px] mx-auto px-4 md:px-16 relative z-10">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-24">
+          <span className="text-white text-xs md:text-sm font-medium mb-6 px-4 py-2 md:px-5 md:py-2.5 border border-[#232A25] rounded-full">
             The solution
           </span>
-          <h2 className="text-white text-2xl md:text-[32px] font-medium leading-tight md:leading-9 mb-3 md:mb-4">
-            Increase offer - your
-            <br />
-            interview-boosting sidekick
+          <h2 className="text-white text-3xl md:text-[32px] font-medium leading-tight md:leading-[32px] mb-6 max-w-4xl">
+            Increase Offer - the all-in-one platform for IT job seekers
           </h2>
-          <p className="text-[#506858] text-sm md:text-base max-w-lg px-4 md:px-0">
-            An intelligent agent that automates job applications, finds your
-            favorite job sources, and provides daily lists of new job openings
-            tailored to your skills and preferences.
+          <p className="text-[#506858] text-sm md:text-base  max-w-2xl leading-relaxed">
+            Get a centralized feed of web-scanned IT job openings, plus built-in
+            tools for mass applying, accessing key recruiter contacts, and
+            effortless application tracking. Start securing interview offers
+            faster and more frequently.
           </p>
         </div>
 
-        {/* Steps Grid - vertical on mobile, horizontal on desktop */}
-        <div className="flex flex-col gap-8 md:gap-16">
-          {/* Row 1 - Stack on mobile, side by side on desktop */}
-          <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16">
-            <StepCard
-              number={1}
-              title="Apply to hundreds automatically"
-              content={<AnimatedJobsPanel />}
-            />
-            <StepCard
-              number={2}
-              title="Find recruiter contacts instantly"
-              content={<AnimatedApplicationsPanel />}
-            />
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 mb-20 md:mb-32">
+          <div className="w-full md:w-1/2 flex flex-col items-start text-left">
+            <div className="bg-[#506858] w-12 h-12 rounded-xl flex items-center justify-center mb-6 text-[#171A18] font-bold text-xl">
+              1
+            </div>
+            <h3 className="text-white text-2xl md:text-[32px] font-medium mb-4">
+              Apply to hundreds automatically
+            </h3>
+            <p className="text-[#506858] text-base md:text-lg leading-relaxed max-w-md">
+              Our intelligent agent scans the web for jobs tailored to your
+              skills and applies to them automatically. Just select the ones you
+              like and let the AI do the rest.
+            </p>
           </div>
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+            <AnimatedJobsPanel />
+          </div>
+        </div>
 
-          {/* Row 2 - One centered card */}
-          <div className="flex justify-center">
-            <StepCard
-              number={3}
-              title="Land interviews faster"
-              content={<AnimatedInboxPanel />}
-            />
+        <div className="flex flex-col md:flex-row-reverse items-center justify-between gap-10 md:gap-20 mb-20 md:mb-32">
+          <div className="w-full md:w-1/2 flex flex-col items-start text-left md:pl-10">
+            <div className="bg-[#506858] w-12 h-12 rounded-xl flex items-center justify-center mb-6 text-[#171A18] font-bold text-xl">
+              2
+            </div>
+            <h3 className="text-white text-2xl md:text-[32px] font-medium mb-4">
+              Find recruiter contacts instantly
+            </h3>
+            <p className="text-[#506858] text-base md:text-lg leading-relaxed max-w-md">
+              Skip the gatekeepers. Get direct access to hiring managers and
+              recruiters with verified contact information, giving you a
+              competitive edge.
+            </p>
+          </div>
+          <div className="w-full md:w-1/2 flex justify-center md:justify-start">
+            <AnimatedApplicationsPanel />
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
+          <div className="w-full md:w-1/2 flex flex-col items-start text-left">
+            <div className="bg-[#506858] w-12 h-12 rounded-xl flex items-center justify-center mb-6 text-[#171A18] font-bold text-xl">
+              3
+            </div>
+            <h3 className="text-white text-2xl md:text-[32px] font-medium mb-4">
+              Track everything in one place
+            </h3>
+            <p className="text-[#506858] text-base md:text-lg leading-relaxed max-w-md">
+              No more messy spreadsheets. Keep track of all your applications,
+              interviews, and offers in a single, intuitive dashboard.
+            </p>
+          </div>
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+            <AnimatedInboxPanel />
           </div>
         </div>
       </div>
