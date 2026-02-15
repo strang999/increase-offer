@@ -235,8 +235,8 @@ function AnimatedHeroCard() {
                 index === 0
                   ? "animate-slide-down"
                   : index === visibleCards.length - 1
-                  ? "opacity-50"
-                  : "animate-slide-shift"
+                    ? "opacity-50"
+                    : "animate-slide-shift"
               }`}
             >
               <JobCard
@@ -275,13 +275,14 @@ export default function HeroSection() {
         {/* Title Container */}
         <div className="flex flex-col items-center text-center mb-6 md:mb-8">
           <h1 className="text-white text-3xl md:text-5xl font-medium leading-tight md:leading-[48px] mb-4 md:mb-5">
-            Your daily list of
+            Hack the job market
             <br />
-            <span className="text-[#00FF00]">valid job vacancies</span>
+            <span className="text-[#00FF00]">Get more interviews</span>
           </h1>
           <p className="text-[#506858] text-sm md:text-base font-medium max-w-lg px-4 md:px-0">
-            Increase offer is an agent that finds and applies to jobs
-            automatically, then gives you a list of valid job openings daily.
+            Stop wasting hours on manual applications. Aggregate top tech jobs,
+            automate your outreach, and connect with recruiters in one click to
+            fill your calendar with interviews.
           </p>
         </div>
 
